@@ -1,6 +1,6 @@
 build
 src
 dist
-out
 src
 stamp
+bzImage
