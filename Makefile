@@ -46,18 +46,12 @@ build/sysroot: stamp/fetch-musl stamp/fetch-kernel
 	cd src/$(MUSL_DIR) && $(MAKE) install
 	cd src/$(LINUX_DIR) && $(MAKE) headers_install INSTALL_HDR_PATH=$(ROOT_DIR)/build/sysroot/usr
 
-build/image: build/sysroot stamp/fetch-busybox
+build/bin/busybox: build/sysroot stamp/fetch-busybox
 	cp config/busybox.config src/$(BUSYBOX_DIR)/.config
 	cd src/$(BUSYBOX_DIR) && $(MAKE)
 	cd src/$(BUSYBOX_DIR) && $(MAKE) install
 
-build/initramfs.cpio.gz: build/image
-	mkdir -p build/image/sys build/image/dev build/image/proc
-	cp init build/image
-	cd build/image && find . | cpio -o -H newc | gzip > ../initramfs.cpio.gz
-
-bzImage: build/initramfs.cpio.gz stamp/fetch-kernel
-	mkdir -p out
+bzImage: build/bin/busybox stamp/fetch-kernel
 	cp config/kernel.config src/$(LINUX_DIR)/.config
 	cd src/$(LINUX_DIR) && $(MAKE)
 	cp src/$(LINUX_DIR)/arch/x86/boot/bzImage bzImage
