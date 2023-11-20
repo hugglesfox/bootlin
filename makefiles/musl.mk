@@ -7,7 +7,7 @@ stamp/fetch-musl:
 	touch $@
 
 stamp/build-musl: stamp/fetch-musl
-	cd src/$(MUSL_DIR) && ./configure --prefix=$(ROOT_DIR)/build/sysroot/usr
+	cd src/$(MUSL_DIR) && ./configure --prefix=$(SYSROOT)/usr
 	cd src/$(MUSL_DIR) && $(MAKE)
 	cd src/$(MUSL_DIR) && $(MAKE) install
 	touch $@

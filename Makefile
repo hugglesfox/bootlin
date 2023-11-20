@@ -1,4 +1,5 @@
 ROOT_DIR := $(dir $(realpath $(lastword $(MAKEFILE_LIST))))
+SYSROOT := $(ROOT_DIR)/build/sysroot
 
 include config.mk
 
