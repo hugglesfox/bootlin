@@ -10,8 +10,10 @@ export MAKEFLAGS
 all: coreboot.rom
 
 include makefiles/helpers.mk
+
 include makefiles/busybox.mk
 include makefiles/coreboot.mk
+include makefiles/cryptsetup.mk
 include makefiles/kexec-tools.mk
 include makefiles/linux.mk
 include makefiles/musl.mk
