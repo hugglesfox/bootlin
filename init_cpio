@@ -9,5 +9,6 @@ dir /mnt 755 0 0
 file /init ../../init.sh 755 0 0
 file /sbin/kexec ../../build/kexec 755 0 0
 file /sbin/cryptsetup ../../build/cryptsetup 755 0 0
+file /sbin/flashrom ../../build/flashrom 755 0 0
 file /bin/busybox ../../build/busybox 755 0 0
 slink /bin/sh busybox 777 0 0

@@ -5,4 +5,4 @@ define fetch
 endef
 
 
-stamp/build-tools: stamp/build-busybox stamp/build-kexec-tools stamp/build-cryptsetup
+stamp/build-tools: stamp/build-busybox stamp/build-kexec-tools stamp/build-cryptsetup stamp/build-flashrom

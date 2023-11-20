@@ -17,6 +17,7 @@ include makefiles/cryptsetup.mk
 include makefiles/kexec-tools.mk
 include makefiles/linux.mk
 include makefiles/musl.mk
+include makefiles/flashrom.mk
 
 clean:
 	-rm -rf build bzImage coreboot.rom stamp/build-*
