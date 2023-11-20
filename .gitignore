@@ -1,6 +1,5 @@
-build
 src
 dist
-src
 stamp
 bzImage
+initramfs.cpio.gz
