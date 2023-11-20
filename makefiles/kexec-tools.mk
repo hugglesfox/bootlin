@@ -8,8 +8,7 @@ stamp/fetch-kexec-tools:
 
 stamp/build-kexec-tools: stamp/fetch-kexec-tools
 	cd src/$(KEXEC_TOOLS_DIR) && ./bootstrap
-	cd src/$(KEXEC_TOOLS_DIR) && CFLAGS="$(CFLAGS) -static" ./configure --prefix=$(ROOT_DIR)/build
+	cd src/$(KEXEC_TOOLS_DIR) && CFLAGS="$(CFLAGS) -static" ./configure
 	cd src/$(KEXEC_TOOLS_DIR) && $(MAKE)
-	cd src/$(KEXEC_TOOLS_DIR) && $(MAKE) install
-	rm -rf build/share
+	cp src/$(KEXEC_TOOLS_DIR)/build/sbin/kexec build
 	touch $@

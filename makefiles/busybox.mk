@@ -9,7 +9,7 @@ stamp/fetch-busybox:
 stamp/build-busybox: stamp/build-musl stamp/build-linux-headers stamp/fetch-busybox
 	cp config/busybox.config src/$(BUSYBOX_DIR)/.config
 	cd src/$(BUSYBOX_DIR) && $(MAKE)
-	cd src/$(BUSYBOX_DIR) && $(MAKE) install
+	cp src/$(BUSYBOX_DIR)/busybox build
 	touch $@
 
 .PHONY: busyboxmenuconfig
