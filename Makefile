@@ -12,15 +12,17 @@ all: coreboot.rom
 include makefiles/helpers.mk
 
 include makefiles/busybox.mk
-include makefiles/coreboot.mk
 include makefiles/cryptsetup.mk
 include makefiles/kexec-tools.mk
 include makefiles/musl.mk
 include makefiles/flashrom.mk
 
+include blobs/Makefile
+
 TOOLS = $(BUSYBOX) $(CRYPTSETUP) $(FLASHROM) $(KEXEC)
 
 include makefiles/linux.mk
+include makefiles/coreboot.mk
 
 clean:
 	-rm -f bzImage coreboot.rom $(TOOLS)

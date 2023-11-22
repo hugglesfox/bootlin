@@ -10,12 +10,12 @@ stamp/setup-coreboot-toolchain: stamp/fetch-coreboot
 	cd src/$(COREBOOT_DIR) && $(MAKE) crossgcc-i386 CPUS=8
 	touch $@
 
-coreboot.rom: bzImage stamp/setup-coreboot-toolchain
+coreboot.rom: bzImage $(BLOBS) stamp/setup-coreboot-toolchain
 	cp config/$(BOARD)_coreboot.config src/$(COREBOOT_DIR)/.config
 	cd src/$(COREBOOT_DIR) && $(MAKE)
 	cp src/$(COREBOOT_DIR)/build/coreboot.rom $(ROOT_DIR)
 
 corebootmenuconfig: stamp/fetch-coreboot
 	cp config/$(BOARD)_coreboot.config src/$(COREBOOT_DIR)/.config
-	cd src/$(COREBOOT_DIR) && make menuconfig
+	cd src/$(COREBOOT_DIR) && $(MAKE) menuconfig
 	cp src/$(COREBOOT_DIR)/.config config/$(BOARD)_coreboot.config
