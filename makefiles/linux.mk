@@ -28,7 +28,7 @@ stamp/build-util-linux: stamp/build-musl stamp/build-linux-headers
 	cd src/$(UTIL_LINUX_DIR) && $(MAKE) install
 	touch $@
 
-bzImage: stamp/build-tools stamp/fetch-linux
+bzImage: stamp/fetch-linux $(TOOLS)
 	cp config/$(BOARD)_kernel.config src/$(LINUX_DIR)/.config
 	cd src/$(LINUX_DIR) && $(MAKE)
 	cp src/$(LINUX_DIR)/arch/x86/boot/bzImage bzImage

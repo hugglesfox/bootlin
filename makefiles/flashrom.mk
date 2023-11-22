@@ -1,3 +1,4 @@
+FLASHROM=build/flashrom
 FLASHROM_DIR=flashrom-v$(FLASHROM_VER)
 FLASHROM_TARBALL=$(FLASHROM_DIR).tar.bz2
 FLASHROM_URL=https://download.flashrom.org/releases/$(FLASHROM_TARBALL)
@@ -19,7 +20,6 @@ stamp/build-pciutils: stamp/build-musl
 	cd src/$(PCIUTILS_DIR) && $(MAKE) PREFIX=$(SYSROOT)/usr install-lib
 	touch $@
 
-stamp/build-flashrom: stamp/fetch-flashrom stamp/build-pciutils stamp/build-linux-headers
+$(FLASHROM): stamp/fetch-flashrom stamp/build-pciutils stamp/build-linux-headers
 	cd src/$(FLASHROM_DIR) && PKG_CONFIG_LIBDIR= PKG_CONFIG_PATH=$(SYSROOT)/usr/lib/pkgconfig $(MAKE) CONFIG_NOTHING=yes CONFIG_INTERNAL=yes CONFIG_INTERNAL_X86=yes CONFIG_STATIC=yes
 	cp src/$(FLASHROM_DIR)/flashrom build
-	touch $@

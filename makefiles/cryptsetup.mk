@@ -1,3 +1,4 @@
+CRYPTSETUP=build/cryptsetup
 CRYPTSETUP_DIR=cryptsetup-$(CRYPTSETUP_VER)
 CRYPTSETUP_TARBALL=$(CRYPTSETUP_DIR).tar.xz
 CRYPTSETUP_URL=https://www.kernel.org/pub/linux/utils/cryptsetup/v2.6/$(CRYPTSETUP_TARBALL)
@@ -65,7 +66,7 @@ stamp/build-popt: stamp/build-musl
 	cd src/$(POPT_DIR) && $(MAKE) install
 	touch $@
 
-stamp/build-cryptsetup: stamp/build-popt stamp/build-lvm stamp/build-util-linux stamp/build-json-c
+$(CRYPTSETUP): stamp/build-popt stamp/build-lvm stamp/build-util-linux stamp/build-json-c
 	cd src/$(CRYPTSETUP_DIR) && ./configure \
 		--enable-static-cryptsetup \
 		--disable-asciidoc \
@@ -76,4 +77,3 @@ stamp/build-cryptsetup: stamp/build-popt stamp/build-lvm stamp/build-util-linux 
 	cd src/$(CRYPTSETUP_DIR) && sed -i 's/-ludev//' Makefile
 	cd src/$(CRYPTSETUP_DIR) && $(MAKE)
 	cp src/$(CRYPTSETUP_DIR)/cryptsetup.static build/cryptsetup
-	touch $@
