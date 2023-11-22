@@ -33,8 +33,8 @@ bzImage: stamp/fetch-linux $(TOOLS)
 	cd src/$(LINUX_DIR) && $(MAKE)
 	cp src/$(LINUX_DIR)/arch/x86/boot/bzImage bzImage
 
-.PHONY: kernelmenuconfig
-kernelmenuconfig: stamp/fetch-linux
+.PHONY: kernel_menuconfig
+kernel_menuconfig: stamp/fetch-linux
 	cp config/$(BOARD)_kernel.config src/$(LINUX_DIR)/.config
 	cd src/$(LINUX_DIR) && make menuconfig
 	cp src/$(LINUX_DIR)/.config config/$(BOARD)_kernel.config

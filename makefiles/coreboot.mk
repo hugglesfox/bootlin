@@ -23,7 +23,13 @@ coreboot.rom: bzImage $(BLOBS) stamp/setup-coreboot-toolchain stamp/fetch-corebo
 	cd src/$(COREBOOT_DIR) && $(MAKE)
 	cp src/$(COREBOOT_DIR)/build/coreboot.rom $(ROOT_DIR)
 
-corebootmenuconfig: stamp/fetch-coreboot
+.PHONY: coreboot_menuconfig
+coreboot_menuconfig: stamp/fetch-coreboot
 	cp config/$(BOARD)_coreboot.config src/$(COREBOOT_DIR)/.config
 	cd src/$(COREBOOT_DIR) && $(MAKE) menuconfig
 	cp src/$(COREBOOT_DIR)/.config config/$(BOARD)_coreboot.config
+
+.PHONY: coreboot_distclean
+coreboot_distclean: stamp/fetch-coreboot
+	cd src/$(COREBOOT_DIR) && $(MAKE) distclean
+	rm -f stamp/fetch-coreboot-blobs
