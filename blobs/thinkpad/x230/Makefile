@@ -2,7 +2,7 @@ X230_BLOBS_DIR = blobs/thinkpad/x230
 
 $(X230_BLOBS_DIR)/ifd.bin:
 
-$(X230_BLOBS_DIR)/gbe.bin:
+$(X230_BLOBS_DIR)/gbe.bin: stamp/fetch-coreboot
 	cd src/$(COREBOOT_DIR)/util/bincfg && $(MAKE) gen-gbe-82579LM WERROR=""
 	mv src/$(COREBOOT_DIR)/util/bincfg/flashregion_3_gbe.bin $(X230_BLOBS_DIR)/gbe.bin
 

@@ -7,7 +7,7 @@ stamp/fetch-coreboot:
 	touch $@
 
 stamp/setup-coreboot-toolchain: stamp/fetch-coreboot
-	cd src/$(COREBOOT_DIR) && $(MAKE) crossgcc-i386 CPUS=8
+	cd src/$(COREBOOT_DIR) && CFLAGS="" $(MAKE) crossgcc-i386 CPUS=8
 	touch $@
 
 coreboot.rom: bzImage $(BLOBS) stamp/setup-coreboot-toolchain

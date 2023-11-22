@@ -3,7 +3,7 @@ BOARD := qemu
 CFLAGS := -march=x86-64 -Os --sysroot=$(SYSROOT)
 MAKEFLAGS := -j10
 
-PCIUTILS_VER    = 3.9.0                          
+PCIUTILS_VER    = 3.9.0
 AIO_VER         = 0.3.113
 BUSYBOX_VER     = 1.36.1
 COREBOOT_VER    = 4.21

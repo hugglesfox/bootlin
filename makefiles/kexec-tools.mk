@@ -7,7 +7,7 @@ stamp/fetch-kexec-tools:
 	$(call fetch,KEXEC_TOOLS)
 	touch $@
 
-$(KEXEC): stamp/build-musl stamp/fetch-kexec-tools
+$(KEXEC): stamp/build-musl stamp/fetch-kexec-tools stamp/build-linux-headers
 	cd src/$(KEXEC_TOOLS_DIR) && ./bootstrap
 	cd src/$(KEXEC_TOOLS_DIR) && CFLAGS="$(CFLAGS) -static" ./configure
 	cd src/$(KEXEC_TOOLS_DIR) && $(MAKE)
