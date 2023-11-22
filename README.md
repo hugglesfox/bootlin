@@ -1,3 +1,9 @@
 # BootLin
 
-A minimal kernel (Linux) + userspace (busybox) designed to be used as a boot envrionment.
+A CoreBoot distribution designed to give a simple Linux boot environment.
+
+BootLin consists of 3 main components
+
+1. Firmware (CoreBoot)
+2. Payload (Linux)
+3. User environment (busybox based initramfs)
