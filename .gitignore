@@ -3,5 +3,4 @@ src
 dist
 src
 stamp
-bzImage
 coreboot.rom

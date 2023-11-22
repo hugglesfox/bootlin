@@ -25,7 +25,7 @@ include makefiles/linux.mk
 include makefiles/coreboot.mk
 
 clean:
-	-rm -f bzImage coreboot.rom
+	-rm -f coreboot.rom build/bzImage build/busybox
 
 distclean:
-	-rm -rf bzImage coreboot.rom build src dist stamp
+	-rm -rf build/bzImage coreboot.rom build src dist stamp

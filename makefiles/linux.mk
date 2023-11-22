@@ -28,10 +28,10 @@ stamp/build-util-linux: stamp/fetch-util-linux stamp/build-musl stamp/build-linu
 	cd src/$(UTIL_LINUX_DIR) && $(MAKE) install
 	touch $@
 
-bzImage: stamp/fetch-linux $(TOOLS)
+build/bzImage: stamp/fetch-linux $(TOOLS)
 	cp config/$(BOARD)_kernel.config src/$(LINUX_DIR)/.config
 	cd src/$(LINUX_DIR) && $(MAKE)
-	cp src/$(LINUX_DIR)/arch/x86/boot/bzImage bzImage
+	cp src/$(LINUX_DIR)/arch/x86/boot/bzImage build/bzImage
 
 .PHONY: kernel_menuconfig
 kernel_menuconfig: stamp/fetch-linux
