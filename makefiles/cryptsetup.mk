@@ -39,18 +39,18 @@ stamp/fetch-json-c:
 	$(call fetch,JSON_C)
 	touch $@
 
-stamp/build-aio: stamp/fetch-aio stamp/build-glibc stamp/build-linux-headers
+stamp/build-aio: stamp/fetch-aio stamp/build-musl stamp/build-linux-headers
 	cd src/$(AIO_DIR) && $(MAKE)
 	cd src/$(AIO_DIR) && $(MAKE) DESTDIR=$(SYSROOT) install
 	touch $@
 
-stamp/build-json-c: stamp/build-glibc stamp/fetch-json-c
+stamp/build-json-c: stamp/build-musl stamp/fetch-json-c
 	cd src/$(JSON_C_DIR) && cmake . -DCMAKE_INSTALL_PREFIX=$(SYSROOT)/usr -DCMAKE_BUILD_TYPE=release
 	cd src/$(JSON_C_DIR) && $(MAKE)
 	cd src/$(JSON_C_DIR) && $(MAKE) install
 	touch $@
 
-stamp/build-lvm: stamp/fetch-lvm stamp/build-glibc stamp/build-util-linux stamp/build-aio
+stamp/build-lvm: stamp/fetch-lvm stamp/build-musl stamp/build-util-linux stamp/build-aio
 	cd src/$(LVM_DIR) && PKG_CONFIG_PATH=$(SYSROOT)/usr/lib/pkgconfig ./configure \
 		--prefix=$(SYSROOT)/usr \
 		--enable-pkgconfig \
@@ -59,7 +59,7 @@ stamp/build-lvm: stamp/fetch-lvm stamp/build-glibc stamp/build-util-linux stamp/
 	cd src/$(LVM_DIR) && $(MAKE) install_device-mapper
 	touch $@
 
-stamp/build-popt: stamp/fetch-popt stamp/build-glibc
+stamp/build-popt: stamp/fetch-popt stamp/build-musl
 	cd src/$(POPT_DIR) && ./configure \
 		--prefix=$(SYSROOT)/usr
 	cd src/$(POPT_DIR) && $(MAKE)

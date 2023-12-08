@@ -14,7 +14,7 @@ include makefiles/helpers.mk
 include makefiles/busybox.mk
 include makefiles/cryptsetup.mk
 include makefiles/kexec-tools.mk
-include makefiles/glibc.mk
+include makefiles/musl.mk
 include makefiles/flashrom.mk
 
 include blobs/Makefile

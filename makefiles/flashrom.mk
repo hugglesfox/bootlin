@@ -15,7 +15,7 @@ stamp/fetch-pciutils:
 	$(call fetch,PCIUTILS)
 	touch $@
 
-stamp/build-pciutils: stamp/fetch-pciutils stamp/build-glibc stamp/build-linux-headers
+stamp/build-pciutils: stamp/fetch-pciutils stamp/build-musl stamp/build-linux-headers
 	cd src/$(PCIUTILS_DIR) && $(MAKE) CFLAGS="$(CFLAGS)" DNS=no ZLIB=no HWDB=no LIBKMOD=no PREFIX=$(SYSROOT)/usr
 	cd src/$(PCIUTILS_DIR) && $(MAKE) PREFIX=$(SYSROOT)/usr install-lib
 	touch $@

@@ -7,7 +7,7 @@ stamp/fetch-busybox:
 	$(call fetch,BUSYBOX)
 	touch $@
 
-$(BUSYBOX): stamp/build-glibc stamp/build-linux-headers stamp/fetch-busybox
+$(BUSYBOX): stamp/build-musl stamp/build-linux-headers stamp/fetch-busybox
 	cp config/busybox.config src/$(BUSYBOX_DIR)/.config
 	cd src/$(BUSYBOX_DIR) && $(MAKE)
 	cp src/$(BUSYBOX_DIR)/busybox build
