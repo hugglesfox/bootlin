@@ -51,11 +51,12 @@ stamp/build-json-c: stamp/build-musl stamp/fetch-json-c
 	touch $@
 
 stamp/build-lvm: stamp/fetch-lvm stamp/build-musl stamp/build-util-linux stamp/build-aio
-	cd src/$(LVM_DIR) && ./configure \
+	cd src/$(LVM_DIR) && PKG_CONFIG_PATH=$(SYSROOT)/usr/lib/pkgconfig ./configure \
 		--prefix=$(SYSROOT)/usr \
-		--enable-static_link 
+		--enable-static-link
 	cd src/$(LVM_DIR) && $(MAKE) device-mapper
 	cd src/$(LVM_DIR) && $(MAKE) install_device-mapper
+	cd src/$(LVM_DIR)/libdm && $(MAKE) install_pkgconfig
 	touch $@
 
 stamp/build-popt: stamp/fetch-popt stamp/build-musl
@@ -66,7 +67,8 @@ stamp/build-popt: stamp/fetch-popt stamp/build-musl
 	touch $@
 
 $(CRYPTSETUP): stamp/fetch-cryptsetup stamp/build-popt stamp/build-lvm stamp/build-util-linux stamp/build-json-c
-	cd src/$(CRYPTSETUP_DIR) && ./configure \
+	cd src/$(CRYPTSETUP_DIR) && PKG_CONFIG_PATH=$(SYSROOT)/usr/lib/pkgconfig ./configure \
+		--with-sysroot=$(SYSROOT) \
 		--enable-static-cryptsetup \
 		--disable-asciidoc \
 		--disable-ssh-token \
