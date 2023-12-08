@@ -23,7 +23,8 @@ stamp/build-util-linux: stamp/fetch-util-linux stamp/build-musl stamp/build-linu
 		--prefix=$(SYSROOT)/usr \
 		--disable-all-programs \
 		--enable-libuuid \
-		--enable-libblkid
+		--enable-libblkid \
+		--without-python
 	cd src/$(UTIL_LINUX_DIR) && $(MAKE)
 	cd src/$(UTIL_LINUX_DIR) && $(MAKE) install
 	touch $@

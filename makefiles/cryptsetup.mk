@@ -51,10 +51,13 @@ stamp/build-json-c: stamp/build-musl stamp/fetch-json-c
 	touch $@
 
 stamp/build-lvm: stamp/fetch-lvm stamp/build-musl stamp/build-util-linux stamp/build-aio
-	cd src/$(LVM_DIR) && PKG_CONFIG_PATH=$(SYSROOT)/usr/lib/pkgconfig ./configure \
-		--prefix=$(SYSROOT)/usr \
-		--enable-pkgconfig \
-		--enable-static_link
+	cd src/$(LVM_DIR) && \
+		PKG_CONFIG_PATH=$(SYSROOT)/usr/lib/pkgconfig \
+		ac_cv_lib_c_canonicalize_file_name=no \
+		./configure \
+			--prefix=$(SYSROOT)/usr \
+			--enable-pkgconfig \
+			--enable-static_link
 	cd src/$(LVM_DIR) && $(MAKE) device-mapper
 	cd src/$(LVM_DIR) && $(MAKE) install_device-mapper
 	touch $@
