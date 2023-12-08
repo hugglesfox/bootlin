@@ -18,7 +18,7 @@ stamp/build-linux-headers: stamp/fetch-linux
 	cd src/$(LINUX_DIR) && $(MAKE) headers_install INSTALL_HDR_PATH=$(ROOT_DIR)/build/sysroot/usr
 	touch $@
 
-stamp/build-util-linux: stamp/fetch-util-linux stamp/build-musl stamp/build-linux-headers
+stamp/build-util-linux: stamp/fetch-util-linux stamp/build-glibc stamp/build-linux-headers
 	cd src/$(UTIL_LINUX_DIR) && ./configure \
 		--prefix=$(SYSROOT)/usr \
 		--disable-all-programs \
