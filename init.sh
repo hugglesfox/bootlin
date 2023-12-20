@@ -21,7 +21,7 @@ ip link set eth0 up
 cryptsetup open /dev/sda1 root
 mount /dev/mapper/root /mnt
 
-kexec -l /mnt/vmlinuz --initrd /mnt/initrd.img --append="root=/dev/mapper/root"
+kexec -l /mnt/vmlinuz --initrd /mnt/initrd.img --append="root=/dev/mapper/root resume=/dev/mapper/root resume_offset=2065633"
 
 # Finally execute a shell
 exec setsid cttyhack sh
