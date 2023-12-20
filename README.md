@@ -39,12 +39,19 @@ Start with customising the `init.sh` script to your needs. This script is
 ran on startup meaning it can be used for things such as automatically mounting
 disks to be booted.
 
-Next compile the BIOS image using make, setting the BOARD variable to the
+Next compile the BIOS image using make, setting the `BOARD` variable to the
 configuration to be used for your main board (see the `config` directory for a
 list of supported boards)
 
 ```sh
 $ make BOARD=qemu
+```
+
+Additionally the `TARGET_MARCH` variable can be used to specify an march target to
+optimise for specific hardware
+
+```sh
+$ make BOARD=thinkpad/x230 TARGET_MARCH=ivybridge
 ```
 
 This should've created `coreboot.rom` which can then be written to your BIOS
