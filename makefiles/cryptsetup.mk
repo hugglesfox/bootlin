@@ -62,10 +62,13 @@ stamp/build-argon2: stamp/fetch-argon2
 	cd src/$(ARGON2_DIR) && $(MAKE) DESTDIR=$(SYSROOT) LIBRARY_REL=lib install
 	touch $@
 
-stamp/build-lvm: stamp/fetch-lvm stamp/build-musl stamp/build-util-linux stamp/build-aio
+stamp/build-lvm: stamp/fetch-lvm stamp/build-musl stamp/build-util-linux stamp/build-aio 
 	cd src/$(LVM_DIR) && \
 		ac_cv_lib_c_canonicalize_file_name=no \
+		ac_cv_func_malloc_0_nonnull=yes \
+		ac_cv_func_realloc_0_nonnull=yes \
 		./configure \
+			--host=x86_64-pc-linux-musl \
 			--prefix=$(SYSROOT)/usr \
 			--enable-pkgconfig \
 			--enable-static_link
@@ -75,6 +78,7 @@ stamp/build-lvm: stamp/fetch-lvm stamp/build-musl stamp/build-util-linux stamp/b
 
 stamp/build-popt: stamp/fetch-popt stamp/build-musl
 	cd src/$(POPT_DIR) && ./configure \
+		--host=x86_64-pc-linux-musl \
 		--prefix=$(SYSROOT)/usr
 	cd src/$(POPT_DIR) && $(MAKE)
 	cd src/$(POPT_DIR) && $(MAKE) install
@@ -84,6 +88,7 @@ $(CRYPTSETUP): stamp/fetch-cryptsetup stamp/build-argon2 stamp/build-popt stamp/
 	cd src/$(CRYPTSETUP_DIR) && \
 		ac_cv_func_dlvsym=no \
 		./configure \
+		--host=x86_64-pc-linux-musl \
 		--enable-static-cryptsetup \
 		--disable-asciidoc \
 		--disable-ssh-token \

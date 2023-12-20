@@ -1,6 +1,7 @@
 BOARD := qemu
 
-CFLAGS := -march=x86-64 -Os 
+TARGET ?= x86-64-v2
+CFLAGS := -Os
 MAKEFLAGS := -j$(shell nproc)
 
 AIO_VER         = 0.3.113

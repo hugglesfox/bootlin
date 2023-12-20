@@ -20,6 +20,7 @@ stamp/build-linux-headers: stamp/fetch-linux
 
 stamp/build-util-linux: stamp/fetch-util-linux stamp/build-musl stamp/build-linux-headers
 	cd src/$(UTIL_LINUX_DIR) && ./configure \
+		--host=x86_64-pc-linux-musl \
 		--prefix=$(SYSROOT)/usr \
 		--disable-all-programs \
 		--enable-libuuid \
@@ -32,6 +33,7 @@ stamp/build-util-linux: stamp/fetch-util-linux stamp/build-musl stamp/build-linu
 build/bzImage: stamp/fetch-linux $(TOOLS)
 	cp config/$(BOARD)_kernel.config src/$(LINUX_DIR)/.config
 	cd src/$(LINUX_DIR) && $(MAKE)
+	cp src/$(LINUX_DIR)/.config config/$(BOARD)_kernel.config
 	cp src/$(LINUX_DIR)/arch/x86/boot/bzImage build/bzImage
 
 .PHONY: kernel_menuconfig
