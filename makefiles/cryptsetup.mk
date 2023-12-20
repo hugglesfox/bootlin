@@ -19,6 +19,10 @@ JSON_C_DIR=json-c-$(JSON_C_VER)
 JSON_C_TARBALL=$(JSON_C_DIR).tar.gz
 JSON_C_URL=https://s3.amazonaws.com/json-c_releases/releases/$(JSON_C_TARBALL)
 
+ARGON2_DIR=phc-winner-argon2-$(ARGON2_VER)
+ARGON2_TARBALL=$(ARGON2_DIR).tar.gz
+ARGON2_URL=https://github.com/P-H-C/phc-winner-argon2/archive/refs/tags/$(ARGON2_VER).tar.gz
+
 stamp/fetch-cryptsetup:
 	$(call fetch,CRYPTSETUP)
 	touch $@
@@ -39,6 +43,10 @@ stamp/fetch-json-c:
 	$(call fetch,JSON_C)
 	touch $@
 
+stamp/fetch-argon2:
+	$(call fetch,ARGON2)
+	touch $@
+
 stamp/build-aio: stamp/fetch-aio stamp/build-musl stamp/build-linux-headers
 	cd src/$(AIO_DIR) && $(MAKE)
 	cd src/$(AIO_DIR) && $(MAKE) DESTDIR=$(SYSROOT) install
@@ -48,6 +56,10 @@ stamp/build-json-c: stamp/build-musl stamp/fetch-json-c
 	cd src/$(JSON_C_DIR) && cmake . -DCMAKE_INSTALL_PREFIX=$(SYSROOT)/usr -DCMAKE_BUILD_TYPE=release
 	cd src/$(JSON_C_DIR) && $(MAKE)
 	cd src/$(JSON_C_DIR) && $(MAKE) install
+	touch $@
+
+stamp/build-argon2: stamp/fetch-argon2
+	cd src/$(ARGON2_DIR) && $(MAKE) DESTDIR=$(SYSROOT) LIBRARY_REL=lib install
 	touch $@
 
 stamp/build-lvm: stamp/fetch-lvm stamp/build-musl stamp/build-util-linux stamp/build-aio
@@ -68,7 +80,7 @@ stamp/build-popt: stamp/fetch-popt stamp/build-musl
 	cd src/$(POPT_DIR) && $(MAKE) install
 	touch $@
 
-$(CRYPTSETUP): stamp/fetch-cryptsetup stamp/build-popt stamp/build-lvm stamp/build-util-linux stamp/build-json-c
+$(CRYPTSETUP): stamp/fetch-cryptsetup stamp/build-argon2 stamp/build-popt stamp/build-lvm stamp/build-util-linux stamp/build-json-c
 	cd src/$(CRYPTSETUP_DIR) && \
 		ac_cv_func_dlvsym=no \
 		./configure \
@@ -76,6 +88,7 @@ $(CRYPTSETUP): stamp/fetch-cryptsetup stamp/build-popt stamp/build-lvm stamp/bui
 		--disable-asciidoc \
 		--disable-ssh-token \
 		--disable-udev \
+		--enable-libargon2 \
 		--with-crypto-backend=kernel
 	
 	cd src/$(CRYPTSETUP_DIR) && sed -i 's/-ludev//' Makefile
