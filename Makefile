@@ -7,14 +7,12 @@ CFLAGS += --sysroot=$(SYSROOT)
 CFLAGS += -Wl,-rpath-link,$(SYSROOT)/usr/lib
 CFLAGS += -Wl,-rpath-link,$(SYSROOT)/usr/lib64
 
-PKG_CONFIG_PATH := $(SYSROOT)/usr/lib/pkgconfig:$(SYSROOT)/usr/lib64/pkgconfig
+PKG_CONFIG_PATH := $(SYSROOT)/usr/lib/pkgconfig
+PKG_CONFIG_PATH := $(PKG_CONFIG_PATH):$(SYSROOT)/usr/lib64/pkgconfig
 
 export CFLAGS
 export MAKEFLAGS
 export PKG_CONFIG_PATH
-
-.PHONY: all clean distclean
-all: coreboot.rom
 
 include makefiles/helpers.mk
 
@@ -30,6 +28,9 @@ TOOLS = $(BUSYBOX) $(CRYPTSETUP) $(FLASHROM) $(KEXEC)
 
 include makefiles/linux.mk
 include makefiles/coreboot.mk
+
+.PHONY: all clean distclean
+all: coreboot.rom
 
 clean:
 	-rm -f coreboot.rom build/bzImage build/busybox
