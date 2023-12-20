@@ -1,6 +1,6 @@
 BOARD := qemu
 
-CFLAGS := -march=x86-64 -Os --sysroot=$(SYSROOT)
+CFLAGS := -march=x86-64 -Os --sysroot=$(SYSROOT) -Wl,-rpath-link,$(SYSROOT)/usr/lib -Wl,-rpath-link,$(SYSROOT)/usr/lib64
 MAKEFLAGS := -j10
 
 PCIUTILS_VER    = 3.9.0

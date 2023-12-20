@@ -70,7 +70,10 @@ stamp/build-popt: stamp/fetch-popt stamp/build-musl
 	touch $@
 
 $(CRYPTSETUP): stamp/fetch-cryptsetup stamp/build-popt stamp/build-lvm stamp/build-util-linux stamp/build-json-c
-	cd src/$(CRYPTSETUP_DIR) && PKG_CONFIG_PATH=$(SYSROOT)/usr/lib/pkgconfig ./configure \
+	cd src/$(CRYPTSETUP_DIR) && \
+		PKG_CONFIG_PATH="$(SYSROOT)/usr/lib/pkgconfig:$(SYSROOT)/usr/lib64/pkgconfig" \
+		ac_cv_func_dlvsym=no \
+		./configure \
 		--enable-static-cryptsetup \
 		--disable-asciidoc \
 		--disable-ssh-token \
