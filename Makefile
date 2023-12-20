@@ -4,7 +4,7 @@ SYSROOT := $(ROOT_DIR)/build/sysroot
 include config.mk
 
 CFLAGS += -specs=$(SYSROOT)/usr/lib/musl-gcc.specs
-CFLAGS += -march=$(TARGET)
+CFLAGS += -march=$(TARGET_MARCH)
 CFLAGS += --sysroot=$(SYSROOT) 
 
 PKG_CONFIG_PATH := $(SYSROOT)/usr/lib/pkgconfig

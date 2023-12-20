@@ -59,7 +59,7 @@ stamp/build-json-c: stamp/build-musl stamp/fetch-json-c
 	touch $@
 
 stamp/build-argon2: stamp/fetch-argon2 stamp/build-musl
-	cd src/$(ARGON2_DIR) && $(MAKE) DESTDIR=$(SYSROOT) LIBRARY_REL=lib OPTTARGET=$(TARGET) install
+	cd src/$(ARGON2_DIR) && $(MAKE) DESTDIR=$(SYSROOT) LIBRARY_REL=lib OPTTARGET=$(TARGET_MARCH) install
 	touch $@
 
 stamp/build-lvm: stamp/fetch-lvm stamp/build-musl stamp/build-util-linux stamp/build-aio 

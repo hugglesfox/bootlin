@@ -1,6 +1,6 @@
 BOARD := qemu
 
-TARGET ?= x86-64-v2
+TARGET_MARCH ?= x86-64
 CFLAGS := -Os
 MAKEFLAGS := -j$(shell nproc)
 
