@@ -14,6 +14,9 @@ export CFLAGS
 export MAKEFLAGS
 export PKG_CONFIG_PATH
 
+.PHONY: all clean distclean
+all: coreboot.rom
+
 include makefiles/helpers.mk
 
 include makefiles/busybox.mk
@@ -28,9 +31,6 @@ TOOLS = $(BUSYBOX) $(CRYPTSETUP) $(FLASHROM) $(KEXEC)
 
 include makefiles/linux.mk
 include makefiles/coreboot.mk
-
-.PHONY: all clean distclean
-all: coreboot.rom
 
 clean:
 	-rm -f coreboot.rom build/bzImage build/busybox
