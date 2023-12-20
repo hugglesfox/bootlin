@@ -21,5 +21,5 @@ stamp/build-pciutils: stamp/fetch-pciutils stamp/build-musl stamp/build-linux-he
 	touch $@
 
 $(FLASHROM): stamp/fetch-flashrom stamp/build-pciutils
-	cd src/$(FLASHROM_DIR) && PKG_CONFIG_LIBDIR= PKG_CONFIG_PATH=$(SYSROOT)/usr/lib/pkgconfig $(MAKE) CONFIG_NOTHING=yes CONFIG_INTERNAL=yes CONFIG_INTERNAL_X86=yes CONFIG_STATIC=yes
+	cd src/$(FLASHROM_DIR) && $(MAKE) CONFIG_NOTHING=yes CONFIG_INTERNAL=yes CONFIG_INTERNAL_X86=yes CONFIG_STATIC=yes
 	cp src/$(FLASHROM_DIR)/flashrom build

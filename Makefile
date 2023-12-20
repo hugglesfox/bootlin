@@ -3,8 +3,15 @@ SYSROOT := $(ROOT_DIR)/build/sysroot
 
 include config.mk
 
+CFLAGS += --sysroot=$(SYSROOT) 
+CFLAGS += -Wl,-rpath-link,$(SYSROOT)/usr/lib
+CFLAGS += -Wl,-rpath-link,$(SYSROOT)/usr/lib64
+
+PKG_CONFIG_PATH := $(SYSROOT)/usr/lib/pkgconfig:$(SYSROOT)/usr/lib64/pkgconfig
+
 export CFLAGS
 export MAKEFLAGS
+export PKG_CONFIG_PATH
 
 .PHONY: all clean distclean
 all: coreboot.rom
