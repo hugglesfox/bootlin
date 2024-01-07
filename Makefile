@@ -24,10 +24,11 @@ include makefiles/cryptsetup.mk
 include makefiles/kexec-tools.mk
 include makefiles/musl.mk
 include makefiles/flashrom.mk
+include makefiles/nvramtool.mk
 
 include blobs/Makefile
 
-TOOLS = $(BUSYBOX) $(CRYPTSETUP) $(FLASHROM) $(KEXEC)
+TOOLS = $(BUSYBOX) $(CRYPTSETUP) $(FLASHROM) $(KEXEC) $(NVRAMTOOL)
 
 include makefiles/linux.mk
 include makefiles/coreboot.mk
