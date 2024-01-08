@@ -57,12 +57,6 @@ $ make BOARD=thinkpad/x230 TARGET_MARCH=ivybridge
 This should've created `coreboot.rom` which can then be written to your BIOS
 flash using tools such as `flashrom`.
 
-## Notes
-
-- For my thinkpad x230, you must set the me_state in the CMOS flash to disabled
-  (`nvramtool -e me_state=Disabled`) otherwise the embedded controller will
-  refuse to boot the laptop from the ACPI S4 state until it has been fully reset.
-
 ## Contributing
 
 Bootlin is licence under the MIT licence. All contributions are welcome.
